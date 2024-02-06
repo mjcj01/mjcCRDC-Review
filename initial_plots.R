@@ -63,6 +63,7 @@ review_csv %>%
   labs(caption = "Two articles were published prior to 2000; one was published in 1971 and one in 1973.") +
   theme_minimal()
 
+### Requires library(ggsankey)
 review_csv %>%
   drop_na(special_school_focus) %>%
   make_long(crdc_headline_only, special_school_focus, schools_analyzed) %>%
@@ -71,4 +72,5 @@ review_csv %>%
                 node = node, 
                 next_node = next_node,
                 fill = factor(node))) +
-  geom_sankey()
+  geom_sankey() +
+  theme_void()
