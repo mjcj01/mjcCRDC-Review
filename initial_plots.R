@@ -1,6 +1,8 @@
 library(tidyverse)
 library(ggsankey)
 
+### Color by "work_type"
+### Also color by "combination vs. only 1 year used"
 data_frame("Year" = c("Historical", "2000", "2002", "2004", "2006", "2009-2010", "2011-2012", 
                       "2013-2014", "2015-2016", "2017-2018", "2020-2021", "Unclear"),
            "Occurances" = c(sum(grepl("historical", review_csv$years_used)),
@@ -74,3 +76,25 @@ review_csv %>%
                 fill = factor(node))) +
   geom_sankey() +
   theme_void()
+
+adjusted_lvls <- review_csv %>%
+  select(title, school_lvls) %>%
+  mutate(adjusted_school_lvls = gsub("elementary, middle, high", "K-12", school_lvls))
+
+data_frame("Level" = c("Pre-K", "Elementary", "Middle", "High", "K-12", "Other"),
+           "Occurances" = c(sum(grepl("preK", adjusted_lvls$adjusted_school_lvls)),
+                            sum(grepl("elementary", adjusted_lvls$adjusted_school_lvls)),
+                            sum(grepl("middle", adjusted_lvls$adjusted_school_lvls)),
+                            sum(grepl("high", adjusted_lvls$adjusted_school_lvls)),
+                            sum(grepl("K-12", adjusted_lvls$adjusted_school_lvls)),
+                            sum(grepl("other", adjusted_lvls$adjusted_school_lvls)))) %>%
+  arrange(Occurances) %>%
+  mutate(Level = factor(Level, levels = Level)) %>%
+  ggplot(data = ., aes(x = Level, y = Occurances)) +
+  geom_col() +
+  coord_flip() +
+  theme_minimal()
+
+### Graph depicting “methods” used in papers or any other coding schema we used (like was CRDC merged with other data? Cross-sectional vs. longitudinal, etc.)
+### CRDC merged with other datasets by year, color by proportional yes or no
+### Cross-sectional vs. longitudinal by year
