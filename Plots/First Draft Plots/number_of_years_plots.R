@@ -27,11 +27,12 @@ noa_csl_ya <- review_csv %>%
   ggplot(data = ., aes(x = years_used, fill = time)) +
   geom_bar() +
   scale_fill_manual(values = two_color, name = "") +
-  coord_flip() +
+  #coord_flip() +
   labs(x = "Civil Rights Data Collection Year",
        y = "Occurances") +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = "white"))
+  theme(plot.background = element_rect(fill = "white"),
+        axis.text.x = element_text(angle = 315, vjust = 1, hjust = 0))
 
 ggsave(plot = noa_csl_ya,
        filename = "Exports//February 7//noa_csl_ya.png",

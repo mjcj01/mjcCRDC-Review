@@ -9,12 +9,17 @@ noa_crf <- data_frame("Civil Rights Focus" = c("Race & Ethnicity", "Sex & Gender
                             sum(grepl("other", review_csv$civil_rights_focus)))) %>%
   arrange(Occurances) %>%
   mutate(`Civil Rights Focus` = factor(`Civil Rights Focus`, levels = `Civil Rights Focus`)) %>%
-  ggplot(data = ., aes(x = `Civil Rights Focus`, y = Occurances, fill = `Civil Rights Focus`)) +
+  ggplot(data = ., aes(x = `Civil Rights Focus`, y = Occurances)) +
   geom_col() +
-  scale_fill_manual(values = five_color) +
+  #scale_fill_manual(values = five_color, name = "") +
+  labs(caption = "Note: The substantive focus of an article/report is shown above. 
+       If an article/report had multiple foci, they were all captured separately 
+       and shown above as separate occurrences.") +
   #coord_flip() +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = "white"))
+  theme(plot.background = element_rect(fill = "white"),
+        axis.text.x = element_text(angle = 315, vjust = 1, hjust = 0),
+        legend.position = "bottom")
 
 ggsave(plot = noa_crf,
        filename = "Exports//February 7//noa_crf.png",
@@ -40,9 +45,13 @@ noa_crt <- data_frame("Substantive Topic" = c("Discipline", "Special Education",
   mutate(`Substantive Topic` = factor(`Substantive Topic`, levels = `Substantive Topic`)) %>%
   ggplot(data = ., aes(x = `Substantive Topic`, y = Occurances)) +
   geom_col() +
+  labs(caption = "Note: The substantive focus of an article/report is shown above. 
+       If an article/report had multiple foci, they were all captured separately 
+       and shown above as separate occurrences.") +
   #coord_flip() +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = "white"))
+  theme(plot.background = element_rect(fill = "white"),
+        axis.text.x = element_text(angle = 315, vjust = 1, hjust = 0))
 
 ggsave(plot = noa_crt,
        filename = "Exports//February 7//noa_crt.png",

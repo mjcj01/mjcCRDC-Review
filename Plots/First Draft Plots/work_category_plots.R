@@ -10,6 +10,7 @@ noa_wc_py <- review_csv %>%
   geom_bar() +
   labs(x = "Publication Year",
        y = "Number of Articles") +
+  scale_fill_manual(values = four_color, name = "") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"))
 
@@ -29,6 +30,7 @@ noa_wc_ya <- review_csv %>%
   geom_bar() +
   labs(x = "Year Analyzed",
        y = "Number of Articles") +
+  scale_fill_manual(values = four_color, name = "") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 315, vjust = 1, hjust = 0),
         plot.background = element_rect(fill = "white"))
