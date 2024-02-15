@@ -6,11 +6,13 @@ noa_wc_py <- review_csv %>%
   mutate("Category" = ifelse(work_type %in% cat1, "Journal Article",
                              ifelse(work_type %in% cat2, "Book Chapter",
                                     ifelse(work_type %in% cat3, "Report", "Other")))) %>%
-  ggplot(data = ., aes(x = year, fill = Category)) +
-  geom_bar() +
+  group_by(Category, year) %>%
+  summarise("count" = n()) %>%
+  ggplot(data = ., aes(x = year, y = count, color = Category)) +
+  geom_line(size = 1) +
   labs(x = "Publication Year",
        y = "Number of Articles") +
-  scale_fill_manual(values = four_color, name = "") +
+  scale_color_manual(values = four_color, name = "") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"))
 
