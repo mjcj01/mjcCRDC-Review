@@ -1,7 +1,7 @@
 library(tidyverse)
 
 ### What to do with more than 5 colors?
-review_csv %>%
+noa_lvls_py <- review_csv %>%
   mutate(school_lvls = gsub("elementary, middle, high", "K-12", school_lvls),
          school_lvls = gsub("middle, elementary, high", "K-12", school_lvls),
          school_lvls = gsub("middle, high", "secondary", school_lvls)) %>%
@@ -15,7 +15,7 @@ review_csv %>%
                       name = "School Levels") +
   theme_minimal()
 
-review_csv %>%
+noa_cov_py <- review_csv %>%
   mutate(geographic_coverage = strsplit(geographic_coverage, split = ", ")) %>%
   unnest(cols = c(geographic_coverage)) %>%
   ggplot(data = ., aes(x = year, fill = geographic_coverage)) +
