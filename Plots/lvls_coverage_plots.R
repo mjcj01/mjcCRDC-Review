@@ -13,7 +13,13 @@ noa_lvls_py <- review_csv %>%
        y = "Occurrences") +
   scale_fill_discrete(breaks = c("preK", "elementary", "middle", "high", "K-12", "secondary", "other"),
                       name = "School Levels") +
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white"))
+
+ggsave(plot = noa_lvls_py,
+       filename = "Exports//February 7//noa_lvls_py.png",
+       height = 4,
+       dpi = 300)
 
 noa_cov_py <- review_csv %>%
   mutate(geographic_coverage = strsplit(geographic_coverage, split = ", ")) %>%
@@ -23,4 +29,10 @@ noa_cov_py <- review_csv %>%
   labs(x = "Publication Year",
        y = "Occurrences") +
   scale_fill_manual(values = three_color, name = "Geographic Coverage") +
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white"))
+
+ggsave(plot = noa_cov_py,
+       filename = "Exports//February 7//noa_cov_py.png",
+       height = 4,
+       dpi = 300)
