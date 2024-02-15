@@ -11,7 +11,8 @@ review_csv %>%
   geom_bar() +
   labs(x = "Publication Year",
        y = "Occurrences") +
-  scale_fill_discrete(breaks = c("preK", "elementary", "middle", "high", "K-12", "secondary", "other")) +
+  scale_fill_discrete(breaks = c("preK", "elementary", "middle", "high", "K-12", "secondary", "other"),
+                      name = "School Levels") +
   theme_minimal()
 
 review_csv %>%
