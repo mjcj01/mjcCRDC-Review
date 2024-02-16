@@ -3,14 +3,17 @@ library(tidyverse)
 ### Put historical at the bottom
 den_ya_yp <- review_csv %>%
   mutate(years_used = strsplit(years_used, split = ", ")) %>%
-  mutate(time = ifelse(one_year_only == "yes", "Cross-Section", "Longitudinal")) %>%
   unnest(cols = c(years_used)) %>%
-  filter(years_used != "unclear") %>%
+  mutate(years_used = str_to_title(years_used)) %>%
+  filter(years_used != "Unclear") %>%
   group_by(year, years_used) %>%
   summarise("count" = n()) %>%
   ggplot(data = ., aes(x = year, y = years_used, fill = count)) +
   geom_tile() +
-  scale_fill_binned() +
+  scale_fill_binned(name = 
+"Number ofOccurrences") +
+  scale_y_discrete(limits = c("Historical", "2000", "2002", "2004", "2006", "2009-10",
+                              "2011-12", "2013-14", "2015-16", "2017-18", "2020-21")) +
   labs(x = "Publication Year",
        y = "Civil Rights Data Collection Year") +
   theme_minimal() +
