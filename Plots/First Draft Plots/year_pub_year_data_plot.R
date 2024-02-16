@@ -1,9 +1,11 @@
 library(tidyverse)
 
+### Put historical at the bottom
 den_ya_yp <- review_csv %>%
   mutate(years_used = strsplit(years_used, split = ", ")) %>%
   mutate(time = ifelse(one_year_only == "yes", "Cross-Section", "Longitudinal")) %>%
   unnest(cols = c(years_used)) %>%
+  filter(years_used != "unclear") %>%
   group_by(year, years_used) %>%
   summarise("count" = n()) %>%
   ggplot(data = ., aes(x = year, y = years_used, fill = count)) +
