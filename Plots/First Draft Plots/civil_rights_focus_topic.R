@@ -2,14 +2,14 @@ library(tidyverse)
 
 noa_crf <- data_frame("Civil Rights Focus" = c("Race & Ethnicity", "Sex & Gender", "Disability", 
                                                "English Language Learners", "Other"),
-           "Occurances" = c(sum(grepl("race/ethnicity", review_csv$civil_rights_focus)),
+           "Occurrences" = c(sum(grepl("race/ethnicity", review_csv$civil_rights_focus)),
                             sum(grepl("sex/gender", review_csv$civil_rights_focus)),
                             sum(grepl("disability", review_csv$civil_rights_focus)),
                             sum(grepl("ELL", review_csv$civil_rights_focus)),
                             sum(grepl("other", review_csv$civil_rights_focus)))) %>%
-  arrange(Occurances) %>%
+  arrange(Occurrences) %>%
   mutate(`Civil Rights Focus` = factor(`Civil Rights Focus`, levels = `Civil Rights Focus`)) %>%
-  ggplot(data = ., aes(x = `Civil Rights Focus`, y = Occurances)) +
+  ggplot(data = ., aes(x = `Civil Rights Focus`, y = Occurrences)) +
   geom_col() +
   #scale_fill_manual(values = five_color, name = "") +
   labs(caption = "Note: The substantive focus of an article/report is shown above. 
@@ -29,7 +29,7 @@ ggsave(plot = noa_crf,
 noa_crt <- data_frame("Substantive Topic" = c("Discipline", "Special Education", "English Language Learners", "Staff",
                                    "Access to Opportunity", "Achievement", "Gifted Education", "Segregation",
                                    "Sports", "School Funding", "Health", "Other"),
-           "Occurances" = c(sum(grepl("discipline", review_csv$topic)),
+           "Occurrences" = c(sum(grepl("discipline", review_csv$topic)),
                             sum(grepl("sped", review_csv$topic)),
                             sum(grepl("ELL", review_csv$topic)),
                             sum(grepl("staff", review_csv$topic)),
@@ -41,9 +41,9 @@ noa_crt <- data_frame("Substantive Topic" = c("Discipline", "Special Education",
                             sum(grepl("school funding", review_csv$topic)),
                             sum(grepl("health", review_csv$topic)),
                             sum(grepl("other", review_csv$topic)))) %>%
-  arrange(Occurances) %>%
+  arrange(Occurrences) %>%
   mutate(`Substantive Topic` = factor(`Substantive Topic`, levels = `Substantive Topic`)) %>%
-  ggplot(data = ., aes(x = `Substantive Topic`, y = Occurances)) +
+  ggplot(data = ., aes(x = `Substantive Topic`, y = Occurrences)) +
   geom_col() +
   labs(caption = "Note: The substantive focus of an article/report is shown above. 
        If an article/report had multiple foci, they were all captured separately 
