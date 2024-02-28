@@ -19,3 +19,4 @@ cat4 <- c("working paper")
 review_csv <- review_csv %>%
   filter(crdc_headline_only == "no") %>%
   filter(work_type %in% cat1 | work_type %in% cat2 | work_type %in% cat3 | work_type %in% cat4)
+
